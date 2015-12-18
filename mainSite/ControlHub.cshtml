@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Create a new move</title>
+				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+				<script>
+		function openModal(windowName) {
+			$('#drape').css('display', 'block');
+			$('#' + windowName).css('display', 'block');
+		}
+
+		function closeModal() {
+			$('#listModal').css('display', 'none');
+			$('#moveModal').css('display', 'none');
+			$('#drape').css('display', 'none');
+		}
+				</script> <!-- open and close modal windows-->
+				<script src="/mainSite/scripts/Utility.js"></script>
+				<script src="/mainSite/scripts/custom.js"></script>
+				<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+				<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+				<link rel="stylesheet" type="text/css" href="Styles/HubStyle.css" />
+		<script>
+			 $(function() {
+				$( "#tabs" ).tabs();
+			});
+		</script>
+    </head>
+    <body onload="getMoveLists('whoever')">
+		<div id='drape' onclick='closeModal()'></div>
+		<div id="tabs">
+			 <ul style="align:center;">
+				<li><a href="#CreateMove">Upload Move</a></li>
+				<li><a href="#MoveLists">Move Lists</a></li>
+				<li><a href="#Moves">Moves</a></li>
+			</ul>
+		<div id="CreateMove">
+			<h1>Create a Move</h1>
+			<form action="ServerCalls/SubmitMoveList.cshtml" enctype="multipart/form-data" method="post" id="createForm"><ul>
+						<li>Move Name: <input type="text" name="moveName" /></li>
+						<li>Move List: <input name="inputFiles[]" type="file" id="fileUpload" /></li>
+					
+						<!-- Adding movers functionality -->				
+						<li>Movers: <input type="text" id="mover" onkeyup="GetMovers(this)" /></br>
+							<textarea rows="5" cols="70" disabled id="selectedMovers"> </textarea>
+						</li>
+						<li>
+							<select id="searched" size="5"><!-- Container for searched movers--></select>
+							<button type="button" onclick="addMover()">Add</button>
+						</li>
+						<li>
+							<button type="button" onclick="removeChoices()">Reset Choices</button>
+						</li>
+						<li>Move Location: <input type="text" name="moveLocation" /></li>
+						<li>Estimated Completion Date: <input type="text" name="endDate" /></li>
+						<li><ul id="moversList"></ul></li>
+						<li><button type="button" onclick="$('#createForm').submit()">Submit Move</button></li>
+					</ul>
+				<input type="hidden" name="moveMovers" id="moveMovers"></input>
+			</form>
+			<br />
+		</div>
+		<div id="MoveLists">
+		<h1>View Moves</h1>	
+			
+			<!-- MoveList Modal -->
+			<div id='listModal' style='display:none'>
+				<h1 id='modalLocation'></h1>
+				<button style='margin: 0 auto; width: 180px;' onclick="populateMoves()">Go to move</button>
+				<input type="hidden" value='' id='moveId' />
+			</div>
+			<!-- End of MoveList Modal-->
+
+			<div id='moveListContainer'>
+				<!-- List Content goes here. -->
+			</div>
+		</div>
+		<div id="Moves">
+		<h1>Moves</h1>
+			
+			<!-- Modal Window to set moves -->
+			<div id="moveModal">
+				<h1 id="moveModal-Name"></h1>
+				<div class="moveInforamtion">
+					<div class="moveModal-box">
+						<div id="moveModal-startLocation"></div>
+					</div>
+					<div class="moveModal-box">
+						<div id="moveModal-endLocation"></div>
+					</div>
+				</div>
+					Computer	<input type="checkbox" id="computerCheckbox"/>
+					Printer 	<input type="checkbox" id="printerCheckbox"/>
+					Ergonomic	<input type="checkbox" id="ergonomicCheckbox"/>
+					<br />
+					<button id="moveModal-submitChanges" onclick="submitMove()">Submit Changes (DOES NOT CLOSE OUT MOVE)</button>
+					<button id="moveModal-submitMove" onclick="submitMove(true)">Submit and close Move</button>
+					<input type="hidden" id="moveModal-moveID" value="" />
+			</div>		
+			<!-- End of MoveModal -->
+
+			<div id='moveContainer'>
+				<!-- Move Content goes here. -->
+			</div>
+		</div>
+		</div>
+	</body>
+</html>

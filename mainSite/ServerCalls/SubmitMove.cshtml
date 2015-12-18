@@ -1,0 +1,35 @@
+﻿@{
+	//Updates the move table with information from the user.
+	Database db = Database.Open("Brett");
+
+	string id       = Request["id"];
+	string cpu      = Request["cpu"];
+	string printer  = Request["printer"];
+	string ergo     = Request["ergo"];
+	string status   = Request["status"];
+		
+	string query = @"UPDATE Moves SET 
+				Computer = @0,
+				Chair = @1,
+				printer = @2,
+				status = @3
+			WHERE
+				MoveID = @4";
+	string errorMessage = "No Errors Detected";
+	int response = 0;
+	try {
+		response = db.Execute(query, cpu, ergo, printer, status, id);
+		if(response != 1) {
+			errorMessage = "Unable to alter records";
+		}
+	} catch(Exception e) {
+		errorMessage = e.Message;
+	}
+}
+
+{
+	"results" : [{
+		"status" : "@response",
+		"ErrorMessage" : "@errorMessage"
+	}]
+}

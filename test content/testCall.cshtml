@@ -1,0 +1,9 @@
+﻿@{
+    String arg1 = Request["moveLocation"]; 
+	System.Web.HttpPostedFileBase arg2 = Request.Files[0];
+	arg2.SaveAs(System.Web.Hosting.HostingEnvironment.MapPath("~/mainSite/Uploaded/MoveTemplate.txt"));
+}
+
+
+Move Location: @arg1
+Move File    : @arg2

@@ -1,0 +1,41 @@
+﻿@using CustomHelpers
+@{
+	//reads the file into the move table and also creates the moveList object
+	Database db = Database.Open("Brett");
+
+	string moveName        = Request["moveName"];
+	string moveMover       = Request["moveMovers"];
+	string moveLocation    = Request["moveLocation"]; 
+	string endDate         = Request["endDate"]; 
+	System.Web.HttpPostedFileBase arg2 = Request.Files[0];
+	arg2.SaveAs(System.Web.Hosting.HostingEnvironment.MapPath("~/mainSite/Uploaded/MoveTemplate.txt"));
+
+	int creatorID = WebSecurity.GetUserId();
+
+	ImportAsset instance = new ImportAsset(System.Web.Hosting.HostingEnvironment.MapPath("~/mainSite/Uploaded/MoveTemplate.txt"));
+	instance.setMeta(creatorID, moveMover, moveName, endDate, moveLocation);
+	
+	string query = @"INSERT INTO Moves (
+	MoveListID, FirstName, LastName, EmployeeNumber,
+	startBuilding, startFloor, startSeat, endBuilding,
+	endFloor, endSeat, Computer, Chair, printer) 
+	VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12)";
+	
+	foreach(string[] move in instance.Moves) {
+		db.Execute(query,instance.moveListID,
+			move[0],move[1],move[2],move[3],move[4],move[5],move[6],
+			move[7],move[8],move[9],move[10],move[11] );
+	}
+	query = @"INSERT INTO moveList (MoveListID, MoveMovers, MoveLocation, 
+		Status, MoveListName, endDate, CreatedDate) VALUES (@0, @1, @2, @3, @4, @5, @6)";
+	db.Execute(query, instance.moveListID, instance.movers, instance.moveLocation, "5", instance.moveName, instance.moveDate, instance.createdDate); 
+}
+
+{
+	"results" : [
+		{
+		"name" : "@moveName",
+		"list" : "@moveMover",
+		"file" : "@instance.fullFilePath"
+	}]
+}

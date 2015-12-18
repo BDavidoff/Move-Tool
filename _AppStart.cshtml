@@ -1,0 +1,10 @@
+﻿@{
+		string database, table, idCol, email;
+		database = "Brett";
+		table    = "UserProfile";
+		idCol    = "ID";
+		email    = "Email";  
+
+    WebSecurity.InitializeDatabaseConnection(database, table, idCol, email, true);
+	
+}

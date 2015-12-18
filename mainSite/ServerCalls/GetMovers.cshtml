@@ -1,0 +1,18 @@
+﻿@{
+	Database db  = Database.Open("Brett");
+	string query = "SELECT * FROM UserBaseView WHERE TypeID = 2 AND [Full Name] LIKE @0";
+	string search = Request.QueryString["val"] + "%";
+	System.Collections.Generic.IEnumerable<dynamic> results = db.Query(query, search);
+	string resultsSet = "";
+	foreach(WebMatrix.Data.DynamicRecord result in results) {
+		resultsSet += 
+			"{\"id\"           : \""  + result[0]  + "\"," +
+			"\"email\"         : \""  + result[1]  + "\"," +       
+			"\"location\"      : \""  + result[2]  + "\"," +   
+			"\"securityLevel\" : \""  + result[3]  + "\"," +
+			"\"FullName\"      : \""  + result[6]  + "\"},";
+	}
+	Response.AddHeader("Content-Type", "application/json");
+	Response.Write( "{ \"results\" : [" +
+		resultsSet.TrimEnd(',') + "]}");
+}

@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<!--
+		add some stupid excel file as a placeholder for now
+		concentrate on getting the hidden field populated and then everything saved to the database
+	-->
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Create a new move</title>
+				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+				<script src="~/mainSite/scripts/Utility.js"></script>
+				<script src="~/mainSite/scripts/custom.js"></script>
+    </head>
+    <body>
+        <form action="ServerCalls/SubmitMoveList.cshtml" enctype="multipart/form-data" method="post" id="createForm"><ul>
+					<li>Move Name: <input type="text" name="moveName" /></li>
+					<li>Move List: <input name="inputFiles[]" type="file" id="fileUpload" /></li>
+					
+					<!-- Adding movers functionality -->				
+					<li>Movers: <input type="text" id="mover" onkeyup="GetMovers(this)" /></br>
+						<textarea rows="5" cols="70" disabled id="selectedMovers"> </textarea>
+					</li>
+					<li>
+						<select id="searched" size="5"><!-- Container for searched movers--></select>
+						<button type="button" onclick="addMover()">Add</button>
+					</li>
+					<li>
+						<button type="button" onclick="removeChoices()">Reset Choices</button>
+					</li>
+					<li>Move Location: <input type="text" name="moveLocation" /></li>
+					<li>Estimated Completion Date: <input type="text" name="endDate" /></li>
+					<li><ul id="moversList"></ul></li>
+					<li><button type="button" onclick="$('#createForm').submit()">Submit Move</button></li>
+				</ul>
+			<input type="hidden" name="moveMovers" id="moveMovers"></input>
+		</form>
+    </body>
+</html>

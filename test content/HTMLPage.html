@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+			<script src="scripts/Utility.js"></script>
+            <script>
+				function thing() {
+					debugger;
+					var result = ajaxRequest("Page2.cshtml", {}, "GET", false);
+					var dis = JSON.parse(result);
+					
+					alert(dis.response[0].Brett);
+				}
+
+            </script>
+    </head>
+    <body>
+			<button type="button" onclick='thing()'>broekn</button>
+    </body>
+</html>

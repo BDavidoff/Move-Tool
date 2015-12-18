@@ -1,0 +1,27 @@
+﻿@{
+	Database db  = Database.Open("Brett");
+	string query = "SELECT * FROM MoveListBaseView WHERE Creator LIKE @0";
+	string creator = "%";
+	//string creator = Request["creator"];
+
+	System.Collections.Generic.IEnumerable<dynamic> results = db.Query(query, creator);
+	string resultsSet = "";
+	
+	foreach(WebMatrix.Data.DynamicRecord result in results) {
+		resultsSet += 
+			"{\"id\"            : \""  + result[0]  + "\"," +
+			"\"movers\"         : \""  + result[1]  + "\"," +       
+			"\"location\"       : \""  + result[2]  + "\"," +   
+			"\"endDate\"        : \""  + result[3]  + "\"," +
+			"\"status\"         : \""  + result[4]  + "\"," +
+			"\"name\"           : \""  + result[5]  + "\"," +
+			"\"createdDate\"    : \""  + result[6]  + "\"," +
+			"\"creator\"        : \""  + result[7]  + "\"," +
+			"\"moveCount\"      : \""  + result[8]  + "\"," +
+			"\"movePercentage\" : \""  + result[9]  + "\"},";
+	}
+
+	Response.AddHeader("Content-Type", "application/json");
+	Response.Write( "{ \"results\" : [" +
+		resultsSet.TrimEnd(',') + "]}");
+}

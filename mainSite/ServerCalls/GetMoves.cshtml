@@ -1,0 +1,28 @@
+﻿@{
+	Database db  = Database.Open("Brett");
+	string query = "SELECT MoveID, FirstName, LastName, EmployeeNumber, startBuilding, startFloor, startSeat, endBuilding, endFloor, endSeat, computer, chair, printer, status  FROM Moves WHERE MoveListId=@0";
+	string search = Request.QueryString["val"];
+	System.Collections.Generic.IEnumerable<dynamic> results = db.Query(query, search);
+	string resultsSet = "";
+
+	foreach(WebMatrix.Data.DynamicRecord result in results) {
+		resultsSet += 
+			"{\"moveID\"           : \""  + result[0]   + "\","   +
+			"\"firstName\"         : \""  + result[1]   + "\","   +       
+			"\"lastName\"      : \""      + result[2]   + "\","   +   
+			"\"employeeNumber\" : \""     + result[3]   + "\","   +
+			"\"startBuilding\" : \""      + result[4]   + "\","   +
+			"\"startFloor\" : \""         + result[5]   + "\","   +
+			"\"startSeat\" : \""          + result[6]   + "\","   +
+			"\"endBuilding\" : \""        + result[7]   + "\","   +
+			"\"endFloor\" : \""           + result[8]   + "\","   +
+			"\"endSeat\" : \""            + result[9]   + "\","   +
+			"\"computer\" : \""           + result[10]  + "\","  +
+			"\"chair\" : \""              + result[11]  + "\","  +
+			"\"printer\" : \""            + result[12]  + "\","  +
+			"\"status\"      : \""        + result[13]  + "\"}," ;
+	}
+	Response.AddHeader("Content-Type", "application/json");
+	Response.Write( "{ \"results\" : [" +
+	resultsSet.TrimEnd(',') + "]}");
+}

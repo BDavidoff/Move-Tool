@@ -1,0 +1,68 @@
+﻿@{
+		Database db = Database.Open("Brett");
+	/*	if(!Roles.IsUserInRole("Administrator")) {
+			Response.Redirect("../Homepage.cshtml");
+		}  */
+
+		if(IsPost) {
+			Response.Write("That was a post");
+			string usr = Request["usr"];
+			string pwd = Request["pwd"];
+			string cpwd = Request["cpwd"];
+			string fNam = Request["fName"];
+			string lNam = Request["lName"];
+			string typ = Request["typ"];
+			string loc = Request["loc"];
+			string sec = Request["sec"];
+
+			
+			if(pwd != cpwd) {
+				Response.Write("YOUR PASSWORD DOES NOT MATCH");
+			}
+			else if (WebSecurity.UserExists(usr)) {
+				Response.Write("USER ALREADY EXISTS");
+			} else {
+				WebSecurity.CreateUserAndAccount(usr, pwd, new{FirstName=fNam, LastName=lNam, location=loc, SecurityLevel=sec} , false);
+				Roles.AddUserToRole(usr, typ);
+				Response.Write("USER CREATED");
+			}
+      }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Create User</title>
+    </head>
+    <body>
+				<h1>Enter User Information</h1>
+        <form action="createUser.cshtml" method="post">
+					Username:          <input type="text"  name="usr" id="usr" /><br />
+					Password:          <input type="password" name="pwd"   /><br />
+					Confirm Password:  <input type="password" name="cpwd"  /><br />
+					First Name:        <input type="text" name="fName"     /><br />
+					Last Name:         <input type="text"  name="lName"    /><br />
+					User Type:
+					<select name="typ">
+						<option value="Deactivated">Deactivated</option>
+						<option value="Mover">Mover</option>
+						<option value="Project Manager">Project Manager</option>
+						<option value="Administrator">Administrator</option>
+					</select><br />
+					<br />FOR MOVER ROLE ONLY *will eventually be a javascript hidden part *<br /><br />
+					Mover Location: <input type="text" name="loc" id="loc" /></br>
+					Mover Security Level:
+					<select name="sec">
+						@{
+							int num = 1;
+							while(num <= 10) {
+								<option value="@num">@num</option>
+								num += 1;
+							}
+						}
+					</select>
+					<input type="submit" value="SUBMIT" />
+				</form>
+    </body>
+</html>

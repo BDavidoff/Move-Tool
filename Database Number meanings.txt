@@ -1,0 +1,10 @@
+Moves:
+	Status:
+		1 = Not Finishined
+		2 = Inprogress
+		3 = Completed
+		5 = Cancelled
+	Printer, Computer, Ergo:
+		0 = Not applicable
+		1 = Not Completed
+		2 = Completed

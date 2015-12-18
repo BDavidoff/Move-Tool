@@ -1,0 +1,20 @@
+﻿@{
+	string User = "'Some Dude'";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>View Move Lists</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="scripts/Utility.js"></script>
+		<script src="scripts/custom.js"></script>
+    </head>
+		<body onload="getMoveLists(@User)">
+        <ul id="moveListContainer">
+		<!-- Move List content Here-->
+		</ul>
+			<button type="button" onclick="debugger; getMoveLists('whoever')">Stupid Firefox</button>
+    </body>
+</html>

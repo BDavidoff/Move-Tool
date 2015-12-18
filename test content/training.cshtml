@@ -1,0 +1,15 @@
+﻿@{
+	Database db = Database.Open("Brett");
+	string query = "SELECT firstName FROM userProfile WHERE ID=@0";
+	var result = db.QuerySingle(query, "7");
+
+
+}
+
+
+<html>
+	<body>
+		<h1> Hello, @result[0]</h1>
+	
+	</body>
+</html>

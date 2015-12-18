@@ -1,0 +1,7 @@
+﻿@{
+ if (!WebSecurity.IsAuthenticated) {
+		Response.Redirect("~/Default");
+	} else {
+		Response.Write("something");
+	}
+}

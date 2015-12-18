@@ -1,0 +1,142 @@
+<!-- 
+id				 - In the atrrib
+movers			 - modal
+number of movers - right tier
+location		 - modal
+endDate			 - left tier
+status			 - color
+name			 - Middle tier
+createdDate		 - left tier
+count			 - right tier
+-->	
+
+<html>
+	<head>
+		<meta enctype='utf-8' />
+		<!-- <script src='jquery.js'></script> -->
+		<script src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
+		<script>
+			$(function() {
+				$('.moveList').on('click', function () {
+					$('#modalLocation').html('');
+					var loc = $('.location', this).attr('value');
+					$('#modalLocation').html(loc);
+					//$('h1').html('This is a test');
+					openModal(); 
+				});
+			});
+			function openModal() {
+				$('#drape').css('display', 'block');
+				$('#modal').css('display', 'block');
+			}
+			function closeModal() {
+				$('#modal').css('display', 'none');
+				$('#drape').css('display', 'none');
+			}
+		</script>
+		<style>
+			#moveListContainer
+			{
+				z-index: 1;
+			}
+			
+			.moveList
+			{
+				margin            : auto;
+				display           : inline-block;
+				border            : 2px solid;
+				margin            : 5px;
+			}
+			.box
+			{
+				padding           : 0px;
+				margin            : 0px;
+				border            : 2px solid;
+				float             : left;
+				margin            : 5px;
+				height            : auto;
+				width             : auto;
+			}
+			.Start
+			{
+				color: green;
+			}
+			.end
+			{
+				color: red;
+			}
+			.moves
+			{
+				color: blue;
+			}
+			.movers
+			{
+				background-color: black;
+				color: yellow;
+			}
+			#drape {
+				position: absolute;
+				z-index: 1;
+				height: 100%;
+				width: 100%;
+				opacity: 0.5;
+				display: none;
+				background-color: black;
+			}
+			#modal 
+			{
+				position: fixed;
+				z-index: 2;
+				display: none;
+				background-color: white;
+				border: 2px solid black;
+				height: auto;
+				width: auto;
+				left: 50%;
+				top: 50%;
+			}
+		</style>
+	</head>	
+	<body>
+		<div id='modal' style='display:hidden'>
+			<h1 id='modalLocation'></h1>
+			<button type='button' style='margin: 0 auto; width: 180px;'>Go to move</button>
+		</div>
+		<div id='drape' onclick='closeModal()'></div>
+		<div id='moveListContainer'>
+			<div class='moveList' name='Brett'>
+				<div class='box'>
+					<span class='Start'>{START DATE}</span><br />
+					<span class='end'>{END DATE}</span>
+					<input class='location' type='hidden' value='Location 1' />
+				</div>
+				<div class='box'>
+					{MOVE NAME}
+				</div>
+				<div class='box'>
+					<span class='movers'>{# OF MOVERS}</span><br />
+					<span class='moves'>{# OF MOVES}</span>
+				</div>
+			</div><br />			
+			<div class='moveList' name='Christina'>
+				<div class='box'>
+					<span class='Start'>{START DATE}</span><br />
+					<span class='end'>{END DATE}</span>
+					<input class='location' type='hidden' value='Location 2' />
+				</div>
+				<div class='box'>
+					<span class="name">
+						{MOVE NAME}
+					</span><br />
+					<span class="percentage">
+						{MOVE PERCENTAGE}
+					</span>
+				</div>
+				<div class='box'>
+					<span class='movers'>{# OF MOVERS}</span><br />
+					<span class='moves'>{# OF MOVES}</span>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,17 @@
+CURRENTLY IN PROGRESS: Set checkbox status fucntion and write cshtml page that sets moves in database
+Create table for movers
+Create table for moveList
+Create table for moves
+finish designing create move page
+write move optimizer
+
+
+upload workflow:
+	1. recognize that a file has been uploaded
+	2. use the file and some metadata to create a moveList record
+	3. add all the moves in the file to the moves table
+
+Organize Code:
+	Lay out plans for folder structure for website.
+	put comments into website.
+	go over database tables and views and optimize.

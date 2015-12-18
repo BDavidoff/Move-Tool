@@ -1,0 +1,37 @@
+﻿@{
+    
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Homepage</title>
+    </head>
+    <body>
+				<div id="options">
+					<!-- Admin Only -->
+					@{
+						if(Roles.IsUserInRole("Administrator")) {
+							<a href="Admin/createUser.cshtml">Create User</a>
+
+						}
+						if(Roles.IsUserInRole("Project Manager")) {
+							<ul>
+								<li><a href="CreateMove.cshtml">Create new Move</a></li>
+								<li><a href="EditMove.cshtml">Edit an unfinshed Existing Move</a></li>
+								<li><a href="MoveLists.cshtml">View an existing Move</a></li>
+								<li><a href="reporting.cshtml">Generate a Report</a></li>
+							</ul>
+						}
+					}
+					<!-- End admin -->
+					<p>this is regular content right here</p>
+
+				</div>
+        <div id="header">
+					
+				</div>
+    </body>
+</html>
